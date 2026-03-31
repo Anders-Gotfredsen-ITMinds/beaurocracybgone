@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Beaurocracy B'Gone",
+  "version": "0.1.0",
+  "description": "Translates legal text into plain language — summaries, bullet points, and risk flags.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/shared.js", "content/analyze.js", "content/factcheck.js"],
+      "css": ["content/analyze.css", "content/factcheck.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Beaurocracy B'Gone"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}

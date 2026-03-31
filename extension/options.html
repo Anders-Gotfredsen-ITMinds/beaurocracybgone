@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beaurocracy B'Gone — Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div id="container">
+    <h1>Beaurocracy B'Gone — Settings</h1>
+    <form id="settings-form">
+      <div class="field">
+        <label for="api-url">API URL</label>
+        <input type="url" id="api-url" placeholder="http://localhost:8000" />
+        <span class="hint">The base URL of your Beaurocracy B'Gone API.</span>
+      </div>
+      <div class="field">
+        <label for="api-key">API Key</label>
+        <input type="password" id="api-key" placeholder="bgone-…" />
+        <span class="hint">Your X-API-Key value.</span>
+      </div>
+      <div id="feedback"></div>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
