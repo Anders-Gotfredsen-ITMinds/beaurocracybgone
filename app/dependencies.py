@@ -21,7 +21,7 @@ def get_factcheck_service() -> IFactCheckService:
     return FactCheckService(
         api_key=settings.anthropic_api_key,
         model=settings.llm_model,
-        max_tokens=settings.llm_max_tokens,
+        max_tokens=settings.llm_fact_check_max_tokens,
         system_prompt=FACT_CHECK_PROMPT,
     )
 

@@ -21,9 +21,9 @@ def _extract_video_id(url: str) -> str:
 def fetch_transcript(url: str) -> str:
     video_id = _extract_video_id(url)
     try:
-        snippets = YouTubeTranscriptApi.get_transcript(video_id)
+        transcript = YouTubeTranscriptApi().fetch(video_id)
     except NoTranscriptFound:
         raise TranscriptError("No transcript available for this video.")
     except TranscriptsDisabled:
         raise TranscriptError("Transcripts are disabled for this video.")
-    return " ".join(s["text"] for s in snippets)
+    return " ".join(s.text for s in transcript)
