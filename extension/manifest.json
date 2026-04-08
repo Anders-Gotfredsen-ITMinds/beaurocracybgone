@@ -3,7 +3,7 @@
   "name": "Beaurocracy B'Gone",
   "version": "0.1.0",
   "description": "Translates legal text into plain language — summaries, bullet points, and risk flags.",
-  "permissions": ["storage", "activeTab", "scripting"],
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
   "background": {
     "service_worker": "background.js"
   },
