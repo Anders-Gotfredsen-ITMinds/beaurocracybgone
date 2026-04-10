@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import { ShareIntentProvider, useShareIntent } from 'expo-share-intent';
+import { factCheck } from '@/services/api';
+import { addHistoryItem, updateHistoryItem } from '@/services/history';
 
 function ShareIntentHandler() {
-  const router = useRouter();
   const { hasShareIntent, shareIntent, resetShareIntent } = useShareIntent();
 
   useEffect(() => {
     if (hasShareIntent && shareIntent?.text) {
       const url = shareIntent.text.trim();
       resetShareIntent();
-      router.push({ pathname: '/results', params: { url } });
+      addHistoryItem(url).then((item) => {
+        factCheck(url)
+          .then((result) => updateHistoryItem(item.id, { status: 'done', result }))
+          .catch((e) => updateHistoryItem(item.id, { status: 'error', error: e.message }));
+      });
     }
   }, [hasShareIntent, shareIntent]);
 
