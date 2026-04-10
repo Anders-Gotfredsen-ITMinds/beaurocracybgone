@@ -15,6 +15,25 @@
 - Format: a short conventional title on the first line, then a blank line, then `Prompt: "<the user's prompt verbatim>"` in the body.
 - This gives the user a readable `git log` while preserving the full prompt history in each commit.
 
+## Mobile coding standards (React Native / Expo)
+
+**TypeScript**
+- Always `catch (e: unknown)` with an `instanceof Error` guard — never `catch (e: any)`
+- No `any` types anywhere in mobile code
+
+**React hooks**
+- Every `useEffect` dependency array must be complete — include every value from the outer scope the effect reads or calls
+- Wrap callbacks passed as props in `useCallback`
+
+**Async / error handling**
+- Never fire-and-forget: every Promise must have a `.catch()` or be inside `try/catch`
+- Errors must be surfaced to state or logged — never silently swallowed
+
+**React Native UX**
+- Wrap any screen with a text input in `KeyboardAvoidingView` (`behavior="padding"` on iOS, `"height"` on Android)
+- Add `keyboardShouldPersistTaps="handled"` to any `ScrollView` that contains tappable elements
+- Use `FlatList` instead of `ScrollView` for lists of unknown or potentially large length
+
 ## Project context
 - This is an AI-powered tool for making legal documents and video content more accessible to ordinary people.
 - The backend is FastAPI + Anthropic Claude. Keep that stack unless there's a strong reason to diverge.
