@@ -11,13 +11,18 @@ function ShareIntentHandler() {
     if (hasShareIntent && shareIntent?.text) {
       const url = shareIntent.text.trim();
       resetShareIntent();
-      addHistoryItem(url).then((item) => {
-        factCheck(url)
-          .then((result) => updateHistoryItem(item.id, { status: 'done', result }))
-          .catch((e) => updateHistoryItem(item.id, { status: 'error', error: e.message }));
-      });
+      addHistoryItem(url)
+        .then((item) => {
+          factCheck(url)
+            .then((result) => updateHistoryItem(item.id, { status: 'done', result }))
+            .catch((e: unknown) => {
+              const msg = e instanceof Error ? e.message : 'Unknown error';
+              updateHistoryItem(item.id, { status: 'error', error: msg });
+            });
+        })
+        .catch((e: unknown) => console.error('Failed to save history item', e));
     }
-  }, [hasShareIntent, shareIntent]);
+  }, [hasShareIntent, shareIntent, resetShareIntent]);
 
   return null;
 }

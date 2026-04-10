@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import {
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -24,8 +26,8 @@ export default function HomeScreen() {
     setError(null);
     try {
       setResult(await factCheck(url.trim()));
-    } catch (e: any) {
-      setError(e.message);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Unknown error');
     } finally {
       setLoading(false);
     }
@@ -41,7 +43,8 @@ export default function HomeScreen() {
     : null;
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
       <Text style={styles.title}>🎥 Fact Checker</Text>
       <Text style={styles.subtitle}>
         Paste a YouTube URL, or share a video directly from Instagram or YouTube.
@@ -82,6 +85,7 @@ export default function HomeScreen() {
         </>
       )}
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

@@ -14,7 +14,7 @@ export default function ResultsScreen() {
     if (!url) return;
     factCheck(url)
       .then(setResult)
-      .catch((e) => setError(e.message))
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : 'Unknown error'))
       .finally(() => setLoading(false));
   }, [url]);
 

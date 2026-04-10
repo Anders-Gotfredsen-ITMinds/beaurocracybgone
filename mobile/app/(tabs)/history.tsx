@@ -21,10 +21,10 @@ export default function HistoryScreen() {
     }, [])
   );
 
-  async function handleDelete(id: string) {
+  const handleDelete = useCallback(async (id: string) => {
     await deleteHistoryItem(id);
     setItems((prev) => prev.filter((item) => item.id !== id));
-  }
+  }, []);
 
   if (items.length === 0) {
     return (
