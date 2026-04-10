@@ -14,8 +14,8 @@ export interface FactCheckResult {
 export async function getSettings(): Promise<{ apiUrl: string; apiKey: string }> {
   const [apiUrl, apiKey] = await AsyncStorage.multiGet(['apiUrl', 'apiKey']);
   return {
-    apiUrl: apiUrl[1] ?? 'http://localhost:8000',
-    apiKey: apiKey[1] ?? '',
+    apiUrl: apiUrl[1] ?? process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000',
+    apiKey: apiKey[1] ?? process.env.EXPO_PUBLIC_API_KEY ?? '',
   };
 }
 
