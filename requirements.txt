@@ -4,3 +4,5 @@ anthropic
 pydantic-settings
 python-dotenv
 youtube-transcript-api
+yt-dlp
+faster-whisper
